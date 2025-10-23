@@ -122,3 +122,14 @@ alias la='ls -A'
 alias l='ls -CF'
 alias cls='clear'
 alias update='sudo apt update && sudo apt upgrade -y'
+
+# --- Auto-start ssh-agent and load key ---
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    eval "$(ssh-agent -s)" >/dev/null
+fi
+
+if ! ssh-add -l >/dev/null 2>&1; then
+    ssh-add ~/.ssh/id_ed25519 </dev/null
+fi
+# --- End ssh-agent auto-start ---
+
